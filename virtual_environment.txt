@@ -1,0 +1,10 @@
+within the windows powershell, run the commands below. 
+
+
+PS> mkdir avocado_analytics
+PS> cd avocado_analytics
+PS> python -m venv venv
+PS> venv\Scripts\activate
+
+The first two commands create your project's directory and move your current location there. 
+the last two commands create your new virtual python environment and activate it in Windows.
