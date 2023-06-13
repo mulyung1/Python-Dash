@@ -1,3 +1,4 @@
+YOUR VIRUAL ENVIRONMENT
 within the windows powershell, run the commands below. 
 
 
@@ -8,6 +9,5 @@ PS> venv\Scripts\activate
 
 The first two commands create your project's directory and move your current location there. 
 the last two commands create your new virtual python environment and activate it in Windows.
-
 
 Ensure you have saved the avocado.csv and app.py files in the root directory of your project. 
