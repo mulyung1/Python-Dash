@@ -1,52 +1,30 @@
-#app.py
+# Run this app with `python app.py` and
+# visit http://127.0.0.1:5050/ in your web browser.
 
-import pandas as pd 
-from dash import Dash, dcc, html
-
-data = (
-    pd.read_csv("avocado.csv")
-    .query("type == 'conventional' and region == 'Albany' ")
-    .assign(Date = lambda data: pd.to_datetime(data["Date"], format = "%Y-%m-%d"))
-    .sort_values(by = "Date")
-)
-
+from dash import Dash, html, dcc
+import plotly.express as px
+import pandas as pd
 app = Dash(__name__)
 
-app.layout = html.Div(
-    children =[
-        html.H1(children = 'Avocado Analytics'),
-        html.P(
-            children =(
-                "Analyzing the behavior of avocado prices and the number"
-                " of avocados sold in the US between 2015 and 2018"
-            ),
-        ),
-        dcc.Graph(
-            figure = {
-                "data" : [
-                    {
-                        "x": data["Date"],
-                        "y": data["AveragePrice"],
-                        "type": "lines",
-                    },
-                ],
-                "layout": {"title": "Average Price of Avocados"},
-            },
-        ),
-        dcc.Graph(
-            figure = {
-                "data" : [
-                    {
-                        "x": data["Date"],
-                        "y": data["Total Volume"],
-                        "type" : "lines",
-                    },
-                ],
-                "layout": {"title": "Avocados Sold"},
-            },
-        ),
-    ]
-)
+# assume you have a "long-form" data frame
+# see https://plotly.com/python/px-arguments/ for more options
+df = pd.DataFrame({
+    "Campus": ["UON", "TUK", "Daystar Uni", "JKUAT", "KU", "KCA"],
+    "Admissions": [4000, 1800, 2500, 8000, 4500, 3500],
+    "County": ["Nairobi", "Nairobi", "Nairobi", "Kiambu", "Kiambu", "Kiambu"]
+})
 
-if __name__ == "__main__":
-    app.run_server(debug=True)
+fig = px.bar(df, x="Campus", y="Admissions", color="County", barmode="group")
+
+app.layout = html.Div(children=[
+    html.H1(children='University Campuses'),
+
+    html.Div(children='''
+        Admissions per campus for the year 2023.
+    '''),
+
+    dcc.Graph(figure=fig,id='barGraph')
+])
+
+if __name__ == '__main__':
+    app.run(debug=True,port=5050)
