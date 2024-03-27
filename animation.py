@@ -1,5 +1,3 @@
-#Run this app with `python app.py` and
-# visit http://127.0.0.1:2000/ in your web browser.
 
 #import the necessary modules
 from dash import Dash, dcc, html, callback, Output, Input
@@ -62,4 +60,4 @@ def dataApp(buttons):
 
 #run the app
 if __name__ == '__main__':
-    app.run(debug=True,port=2000)
+    app.run(debug=True)
